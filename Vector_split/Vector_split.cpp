@@ -1,33 +1,30 @@
 #include <iostream>
 #include <vector>
+#include <string>
+using namespace std;
 
-
-void split( std::string x, char y,std::string &z){
-    int temp=0;
-   for(int i=0;i<x.length();i++){
-    if(x.find(y)!= std::string::npos){
-        int b=i;
-        for(int i = temp; i<b;i++){
-          z+=x[i];
-          std::cout<<z;
-        };
-    };
-   }
+vector<string> split(string target, string delimiter) {
+  vector<string> end;
+  int x = 0;
+  string data;
+  while ((x = target.find(delimiter)) != string::npos) {
+    data = target.substr(0, x);
+    end.push_back(data); //add to split vector
+    target.erase(0, x + delimiter.length());
+  }
+ end.push_back(target);
+ return end;
 }
 
-int main(){
-    std::vector<std::string> start = {"do,re,me,fa,so,la,ti,do"};
-    std::vector<std::string> end;
-    for(int i=0;i<start.size();i++){
-      std::string x= start[i] ; 
-      char y = ',';
-      std::string z;
-      split(x,y,z);
-      end.push_back(z);
-      z="";
-    }
-    for(int i = 0;i<end.size();i++){
-        std::cout<<end[i];
-    }
-    return 0;
+int main() {
+  string target = "do,re,me,fa,so,la,ti,do";
+  string delimiter = ",";
+
+  //Call function and assign to future split vector
+  vector<string> end = split(target, delimiter);
+  //Display the divided vector
+  for (string temp : end) {
+    cout << temp << endl;
+  }
+ return 0;
 }
