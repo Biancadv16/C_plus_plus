@@ -8,7 +8,6 @@ int main(){
      std::cin>>twenty_four_time;
         hours = (twenty_four_time/100);    //find the hours
         minutes=(twenty_four_time%100);   //find the minutes
-        std::cout<<minutes<<std::endl;
      //tests length of time entered
         int test = twenty_four_time;
         while(test>0){ 
