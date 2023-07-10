@@ -37,7 +37,7 @@ int main(){
      std::cout<<"\nTransaction \t"<<"Amount \t \t"<<"Balance \t"<<"Bank Costs \t"<<std::endl;
 
      //CHeck whether values are withdraws,deposits or interests
-     for(int i=2;i<21;i+=2){
+     for(int i=2;i<data_items.size();i+=2){
         std::string x=data_items[i];
         double y=stod(data_items[i+1]);       //string to double 
         double bank_costs;
