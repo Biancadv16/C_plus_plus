@@ -5,7 +5,7 @@
 #include <cstdlib>
 
 //FUNCTIONS FOR ENCRYPT/DECRYPT 1st
-    char decrypt(char &x){
+    char decrypt1(char &x){
         int y = int(x);
         if(y>=48 && y<=57){
             y+=17;
@@ -37,7 +37,7 @@
         return x;
     }
 
-    char encrypt(char &x){
+    char encrypt1(char &x){
         int y = int(x);
         if(y>=65 && y<=74){
             y-=17;
@@ -69,7 +69,7 @@
         return x;
     }
 
-    void crypt(std::ifstream &in_file,std::ofstream &out_file,int z){
+    void crypt1(std::ifstream &in_file,std::ofstream &out_file,int z){
          std::vector<char> data_items;
          char data;
          while(in_file>>std::noskipws>>data){
@@ -78,16 +78,75 @@
         for(int i=0;i<data_items.size();i++){
             char x=data_items[i];
             if(z==1){
-                decrypt(x);
+                decrypt1(x);
                 out_file<<x;
             }else{
-                encrypt(x);
+                encrypt1(x);
                 out_file<<x;
             }
          }
     }
 
+//ENCRYPT/DECRYPT 2nd
+char encrypt2(char &x,int z){
+      switch(z){
+        case 1:
 
+            break;
+        case 2:
+             
+            break;
+        case 3:
+
+            break;
+        case 4:
+
+            break;
+        default:
+            std::cout<<"ERROR 101:contact support and retry in a few minutes.";
+            break;
+      }
+
+}
+
+char decrypt2(char &x,int z){
+      switch(z){
+        case 1:
+
+            break;
+        case 2:
+             
+            break;
+        case 3:
+
+            break;
+        case 4:
+
+            break;
+        default:
+            std::cout<<"ERROR 101:contact support and retry in a few minutes.";
+            break;
+      }
+
+}
+
+ void crypt2(std::ifstream &in_file,std::ofstream &out_file,int z){
+         std::vector<char> data_items;
+         char data;
+         while(in_file>>std::noskipws>>data){
+               data_items.push_back(data);
+         }
+        for(int i=0;i<data_items.size();i++){
+            char x=data_items[i];
+            if(z==1){
+                decrypt1(x);
+                out_file<<x;
+            }else{
+                encrypt1(x);
+                out_file<<x;
+            }
+         }
+    }
 //FUNCTION FOR LOGO
 
     void asteriks_line(){
@@ -97,13 +156,23 @@
     }
 
 //FUNCTION FOR SIGNIN AND SIGNUP
+   void write_to_files(){
+     std::ofstream out_encrypted_info("secret_file.dat",std::ios::binary);
+     std::ifstream in_account_info("account_file.dat",std::ios::binary);
+     if(out_encrypted_info.is_open()){
+           crypt1(in_account_info,out_encrypted_info,0) ;
+        }else{
+           std::cout<<"ERROR: System offline,contact support and retry in a few minutes.";
+           exit(1);
+     }
+    }
 
-    void signIn_files(){
+    void read_from_files(){
         std::ifstream in_encrypted_info("account_info/secret_file.dat",std::ios::binary);
         std::ofstream out_account_info("account_info/account_file.dat",std::ios::binary);
         if(in_encrypted_info.is_open()){
-            crypt(in_encrypted_info, out_account_info,1);
-          //    crypt(in_account_info,out_encrypted_info,0) ;
+            crypt1(in_encrypted_info, out_account_info,1);
+            
         }else{
             std::cout<<"ERROR: System offline,contact support and retry in a few minutes.";
             exit(1);
@@ -113,6 +182,7 @@
     std::string signIn(std::string x,std::string y){
          std::cout<<"\nPlease enter your Username: ";
          getline (std::cin,x);
+         read_from_files();
          std::cout<<"Enter your password: ";
          getline (std::cin,y);
          std::cout<<std::endl;
@@ -126,6 +196,7 @@
         int x=1;
          std::cout<<"\nPlease enter your Username: ";
          getline (std::cin,a);
+
          while(x==1){
          std::cout<<"\nEnter your password: ";
          getline (std::cin,b);
@@ -147,7 +218,7 @@
          }
      return a,b,c,d,e,f,g;
     }
-
+   
 //SIGNIN OR SIGNUP
 
  void signing_process(){
@@ -159,11 +230,10 @@
         getline (std::cin,signtype);
 
         if(signtype=="Sign In" || signtype=="sign in" || signtype=="signin" || signtype=="Signin" || signtype=="signIn" || signtype=="SignIn" || signtype=="Sign in" || signtype=="sign In" || signtype=="In"  || signtype=="in"){
-             signIn_files();
              signIn(username,password);
              signing=0;
         }else if(signtype=="Sign Up" || signtype=="sign up" || signtype=="signup" || signtype=="Signup" || signtype=="signUp" || signtype=="SignUp" || signtype=="Sign up" || signtype=="sign Up" || signtype=="Up"  || signtype=="up"){
-             signIn_files();
+             write_to_files();
 
              while(signupVerify==0){
               signUp(new_username,new_password,confirm_password,name,surname,email,number);
